@@ -477,6 +477,10 @@ export class VariablesState extends VariablesStateAccessor<
     return this._callStack.currentElementIndex;
   }
 
+  public LogGlobalVariables () {
+    return JSON.stringify(this._globalVariables)
+  }
+
   /**
    * This function is specific to the js version of ink. It allows to register a
    * callback that will be called when a variable changes. The original code uses
