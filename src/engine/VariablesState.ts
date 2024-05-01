@@ -441,7 +441,7 @@ export class VariablesState extends VariablesStateAccessor<
           this._changedVariablesForBatchObs.add(variableName);
         }
       } else {
-        this.variableChangedEvent(variableName, value, oldValue);
+        this.variableChangedEvent(variableName, value, oldValue?.result);
       }
     }
   }
