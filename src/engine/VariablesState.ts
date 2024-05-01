@@ -477,8 +477,8 @@ export class VariablesState extends VariablesStateAccessor<
     return this._callStack.currentElementIndex;
   }
 
-  public LogGlobalVariables () {
-    return JSON.stringify(this._globalVariables)
+  public PeekGlobalVariables () {
+    return Object.fromEntries(this._globalVariables.entries().map(([k, v]) => [k, v.value]))
   }
 
   /**
