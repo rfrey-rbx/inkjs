@@ -479,8 +479,9 @@ export class VariablesState extends VariablesStateAccessor<
 
   public PeekGlobalVariables () {
     // Property 'map' does not exist on type 'IterableIterator<[string, InkObject]>'.
+    // plus implicit any types for the destructured array
     // @ts-ignore
-    return Object.fromEntries(this._globalVariables.entries().map(([k: string, v: any]) => [k, v.value]))
+    return Object.fromEntries(this._globalVariables.entries().map(([k, v]) => [k, v.value]))
   }
 
   /**
