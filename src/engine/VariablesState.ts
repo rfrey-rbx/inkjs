@@ -37,11 +37,11 @@ export class VariablesState extends VariablesStateAccessor<
   // an actual collection of delegates (ie. callbacks) to register a new one, there is a
   // special ObserveVariableChange method below.
   public variableChangedEventCallbacks: Array<
-    (variableName: string, newValue: InkObject) => void
+    (variableName: string, newValue: InkObject, oldValue?: InkObject) => void
   > = [];
-  public variableChangedEvent(variableName: string, newValue: InkObject): void {
+  public variableChangedEvent(variableName: string, newValue: InkObject, oldValue?: InkObject): void {
     for (let callback of this.variableChangedEventCallbacks) {
-      callback(variableName, newValue);
+      callback(variableName, newValue, oldValue);
     }
   }
 
@@ -424,6 +424,7 @@ export class VariablesState extends VariablesStateAccessor<
     }
 
     // TODO: Not sure !== is equivalent to !value.Equals(oldValue)
+    // TODO: Q: Does `oldValue !== null` mean we won't see a variable when first set? or do they always start with values?
     if (
       this.variableChangedEvent !== null &&
       oldValue !== null &&
@@ -440,7 +441,7 @@ export class VariablesState extends VariablesStateAccessor<
           this._changedVariablesForBatchObs.add(variableName);
         }
       } else {
-        this.variableChangedEvent(variableName, value);
+        this.variableChangedEvent(variableName, value, oldValue);
       }
     }
   }
